@@ -1,5 +1,7 @@
 """Pydantic schemas used by the AutoBook HTTP API."""
 
+from datetime import datetime
+
 from pydantic import BaseModel, ConfigDict, Field
 
 
@@ -17,7 +19,7 @@ class BookingResponse(BaseModel):
     id: str
     status: str
     booking_number: str | None = None
-    start_time: str | None = None
+    start_time: datetime | None = None
     cancel_reason: str | None = None
 
 
