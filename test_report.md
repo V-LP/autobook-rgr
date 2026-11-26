@@ -1,25 +1,17 @@
 # Cancellation API test report
 
-Command: `python -m pytest`
+Commands:
 
-Result: **9 failed, 8 passed** (17 tests collected).
+- `ruff check src tests` — passed.
+- `ruff format --check src tests` — passed (25 files already formatted).
+- `python -m pytest -q` — **26 passed, 0 failed**.
 
-## Expected RED failures
+No test failures remain. Coverage includes successful cancellation, reason
+handling and length boundaries, foreign/missing/malformed booking IDs, each
+non-`CONFIRMED` state, repeated cancellation, both time boundaries, role and
+token authorization, expired JWTs, missing `JWT_SECRET`, and RFC 7807 fields.
 
-The nine failing checks all receive HTTP `501 Not Implemented` from the
-cancellation route where the documented contract expects:
-
-- `200`: confirmed-booking success, exactly two hours before start, 255-character
-  reason, empty reason (both empty and whitespace-only), and omitted reason.
-- `400`: non-`CONFIRMED` booking and cancellation less than two hours before
-  start.
-- `404`: missing/foreign booking with the same problem response.
-
-These are assertion failures against the current unimplemented route, not test
-setup, import, fixture, or clock errors. The test clock is fixed through the
-`get_clock()` dependency override.
-
-## Passing tests
-
-Eight tests passed: the 256-character reason validation, missing-token and
-non-client-role authorization checks, and all five existing skeleton tests.
+The test database is isolated per case. Because SQLite drops timezone metadata
+from `DateTime(timezone=True)`, its test-only ORM load listener restores the
+documented `Europe/Kyiv` timezone; API time is supplied through the fixed
+`get_clock()` override.
