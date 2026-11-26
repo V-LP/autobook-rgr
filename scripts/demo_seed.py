@@ -23,14 +23,14 @@ VEHICLE_ID = UUID("40000000-0000-4000-8000-000000000001")
 SERVICE_ID = UUID("10000000-0000-4000-8000-000000000030")
 MASTER_ID = UUID("20000000-0000-4000-8000-000000000001")
 SHIFT_ID = UUID("60000000-0000-4000-8000-000000000001")
-BOOKING_ID = UUID("50000000-0000-4000-8000-000000000001")
+BOOKING_ID = UUID("30000000-0000-4000-8000-000000000001")
 AUDIT_ID = UUID("70000000-0000-4000-8000-000000000001")
 
 
 def main() -> None:
     """Seed deterministic demo data without deleting other database rows."""
     timezone = get_timezone()
-    start_date = get_clock().date() + timedelta(days=1)
+    start_date = get_clock().date() + timedelta(days=3)
     start_time = datetime.combine(start_date, time(10, 0), tzinfo=timezone)
     end_time = start_time + timedelta(minutes=30)
     session_factory = get_session_factory()
@@ -82,11 +82,11 @@ def main() -> None:
         session.merge(
             Booking(
                 id=BOOKING_ID,
-                booking_number="BK-DEMO-0001",
+                booking_number="BK-DEMO-CLIENT-0001",
                 client_id=CLIENT_ID,
                 vehicle_id=VEHICLE_ID,
                 master_id=MASTER_ID,
-                status="PENDING",
+                status="CONFIRMED",
                 start_time=start_time,
                 end_time=end_time,
             )
@@ -105,7 +105,7 @@ def main() -> None:
                 action="BOOKING_CREATED",
                 entity_type="BOOKING",
                 entity_id=BOOKING_ID,
-                new_val='{"status":"PENDING"}',
+                new_val='{"status":"CONFIRMED"}',
             )
         )
 

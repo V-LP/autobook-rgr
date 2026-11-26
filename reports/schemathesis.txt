@@ -1,0 +1,101 @@
+Schemathesis v4.33.1
+━━━━━━━━━━━━━━━━━━━━
+
+ ✅  Loaded specification from docs\api\openapi.yaml (in 0.88s)
+
+     Base URL:         http://127.0.0.1:8001
+     Specification:    Open API 3.0.3
+     Operations:       1 selected / 7 total
+
+ ✅  API capabilities:
+
+     Supports NULL byte in headers:                            ✘
+     Accepts backslash and control characters in URL paths:    ✓
+
+ ❌  Examples (in 0.78s)
+
+     ❌ 1 failed
+
+ ❌  Coverage (in 0.08s)
+
+     ❌ 1 failed
+
+ ❌  Fuzzing (in 0.18s)
+
+     ❌ 1 failed
+
+=================================== FAILURES ===================================
+______________________ PATCH /api/v1/bookings/{id}/cancel ______________________
+1. Test Case ID: Lar3YY
+
+- ST202 Schema-valid request rejected
+
+    Valid data should have been accepted
+    Expected: 2xx, 3xx, 401, 403, 404, 409, 429, 5xx
+
+[400] Bad Request:
+
+    `{"type":"https://autobook.local/errors/cancellation-not-allowed","title":"Cancellation Not Allowed","status":400,"detail":"Скасування можливе лише для підтвердженого бронювання.","instance":"/api/v1/bookings/30000000-0000-4000-8000-000000000001/cancel"}`
+
+Reproduce with:
+
+    curl -X PATCH -H 'Authorization: [Filtered]' -H 'Content-Type: application/json' -d '{}' http://127.0.0.1:8001/api/v1/bookings/30000000-0000-4000-8000-000000000001/cancel
+
+    st replay Lar3YY
+
+______________________ TRACE /api/v1/bookings/{id}/cancel ______________________
+1. Test Case ID: CzbTn9
+
+- ST204 Wrong response to undeclared method
+
+    TRACE returned 405 without required `Allow` header
+
+    Add `Allow` header listing supported methods (required by RFC 9110)
+
+[405] Method Not Allowed:
+
+    `{"type":"https://autobook.local/errors/http-error","title":"HTTP Error","status":405,"detail":"Запит не може бути виконаний.","instance":"/api/v1/bookings/30000000-0000-4000-8000-000000000001/cancel"}`
+
+Reproduce with:
+
+    curl -X TRACE -H 'Authorization: [Filtered]' -H 'Content-Type: application/json' -d '{"reason": ""}' http://127.0.0.1:8001/api/v1/bookings/30000000-0000-4000-8000-000000000001/cancel
+
+    st replay CzbTn9
+
+=================================== SUMMARY ====================================
+
+API Operations:
+  Selected: 1/7
+  Tested: 1
+
+Test Phases:
+  ❌ Examples
+  ❌ Coverage
+  ❌ Fuzzing
+  ⏭  Stateful (not applicable)
+
+Failures:
+  ❌ ST202 Schema-valid request rejected: 1
+  ❌ ST204 Wrong response to undeclared method: 1
+
+For more information, run `st explain <code>` for ST202, ST204.
+
+Test cases:
+  5 generated, 2 found 2 unique failures
+
+Seed: 20261127
+
+============================= 2 failures in 1.25s ==============================
+
+Run context:
+- Selected operation: cancelBooking; Authorization used a freshly generated CLIENT token.
+- JWT signature, subject, and role were verified with the same JWT_SECRET supplied to the server.
+- At verification time, the token had 86,399 seconds until expiration (the script issues it for one day).
+- Seeded booking: id/client_id 30000000-0000-4000-8000-000000000001, CONFIRMED,
+  start_time 2026-11-30T10:00:00+02:00. After this run it was CANCELLED_BY_CLIENT,
+  confirming a request reached the cancellation business logic.
+- The previous 401/403 authentication and repeated-404 warnings did not appear.
+- ST202 followed reuse of the single booking after cancellation: the duplicate request
+  received 400 cancellation-not-allowed, which is the documented repeat-cancellation behavior.
+  This is stateful fixture reuse, not a new OpenAPI response-schema discrepancy.
+- ST204 is the previously recorded unsupported TRACE / missing Allow finding (GAP-017).
