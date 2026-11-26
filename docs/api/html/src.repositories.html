@@ -1,0 +1,469 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="uk" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>src.repositories &mdash; AutoBook SDD  documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=f1837318"></script>
+      <script src="_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Індекс" href="genindex.html" />
+    <link rel="search" title="Пошук" href="search.html" />
+    <link rel="next" title="src.core" href="src.core.html" />
+    <link rel="prev" title="src.services" href="src.services.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            AutoBook SDD
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Пакети</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="models.html">src.models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="src.api.html">src.api</a></li>
+<li class="toctree-l1"><a class="reference internal" href="src.services.html">src.services</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">src.repositories</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#src.repositories.audit_repository.AuditRepository"><code class="docutils literal notranslate"><span class="pre">AuditRepository</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#src.repositories.audit_repository.AuditRepository.add_status_change"><code class="docutils literal notranslate"><span class="pre">AuditRepository.add_status_change()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#src.repositories.booking_repository.BookingRepository"><code class="docutils literal notranslate"><span class="pre">BookingRepository</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#src.repositories.booking_repository.BookingRepository.add_booking"><code class="docutils literal notranslate"><span class="pre">BookingRepository.add_booking()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#src.repositories.booking_repository.BookingRepository.find_booking_for_client"><code class="docutils literal notranslate"><span class="pre">BookingRepository.find_booking_for_client()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#src.repositories.booking_repository.BookingRepository.find_overlapping"><code class="docutils literal notranslate"><span class="pre">BookingRepository.find_overlapping()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#src.repositories.booking_repository.BookingRepository.find_vehicle_for_user"><code class="docutils literal notranslate"><span class="pre">BookingRepository.find_vehicle_for_user()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#src.repositories.booking_repository.BookingRepository.update_booking_status"><code class="docutils literal notranslate"><span class="pre">BookingRepository.update_booking_status()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#src.repositories.schedule_repository.ScheduleRepository"><code class="docutils literal notranslate"><span class="pre">ScheduleRepository</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#src.repositories.schedule_repository.ScheduleRepository.list_for_date"><code class="docutils literal notranslate"><span class="pre">ScheduleRepository.list_for_date()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#src.repositories.schedule_repository.ScheduleRepository.lock_for_master_date"><code class="docutils literal notranslate"><span class="pre">ScheduleRepository.lock_for_master_date()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#src.repositories.service_repository.ServiceRepository"><code class="docutils literal notranslate"><span class="pre">ServiceRepository</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#src.repositories.service_repository.ServiceRepository.list_active"><code class="docutils literal notranslate"><span class="pre">ServiceRepository.list_active()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#src.repositories.service_repository.ServiceRepository.list_active_by_ids"><code class="docutils literal notranslate"><span class="pre">ServiceRepository.list_active_by_ids()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#src.repositories.user_repository.UserRepository"><code class="docutils literal notranslate"><span class="pre">UserRepository</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#src.repositories.user_repository.UserRepository.anonymize_profile"><code class="docutils literal notranslate"><span class="pre">UserRepository.anonymize_profile()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#src.repositories.user_repository.UserRepository.get_by_id_for_update"><code class="docutils literal notranslate"><span class="pre">UserRepository.get_by_id_for_update()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#src.repositories.vehicle_repository.VehicleRepository"><code class="docutils literal notranslate"><span class="pre">VehicleRepository</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#src.repositories.vehicle_repository.VehicleRepository.add_vehicle"><code class="docutils literal notranslate"><span class="pre">VehicleRepository.add_vehicle()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#src.repositories.vehicle_repository.VehicleRepository.count_for_user"><code class="docutils literal notranslate"><span class="pre">VehicleRepository.count_for_user()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#src.repositories.vehicle_repository.VehicleRepository.list_for_user"><code class="docutils literal notranslate"><span class="pre">VehicleRepository.list_for_user()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="src.core.html">src.core</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">AutoBook SDD</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">src.repositories</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/src.repositories.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="src-repositories">
+<h1>src.repositories<a class="headerlink" href="#src-repositories" title="Link to this heading"></a></h1>
+<p>Рівень доступу до даних на основі SQLAlchemy. Репозиторії працюють із
+переданою сесією; межами транзакцій керують відповідні операції сервісів.</p>
+<p id="module-src.repositories">Repositories encapsulating database access for persisted AutoBook entities.</p>
+<p id="module-src.repositories.audit_repository">Audit persistence boundary; writing status-change records is not implemented.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="src.repositories.audit_repository.AuditRepository">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">src.repositories.audit_repository.</span></span><span class="sig-name descname"><span class="pre">AuditRepository</span></span><a class="reference internal" href="_modules/src/repositories/audit_repository.html#AuditRepository"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.repositories.audit_repository.AuditRepository" title="Link to this definition"></a></dt>
+<dd><p>Placeholder repository for immutable, PII-free audit entries.</p>
+<p>The current method is intentionally a no-op; persistence is not implemented.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="src.repositories.audit_repository.AuditRepository.add_status_change">
+<span class="sig-name descname"><span class="pre">add_status_change</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">audit_record</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">object</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/src/repositories/audit_repository.html#AuditRepository.add_status_change"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.repositories.audit_repository.AuditRepository.add_status_change" title="Link to this definition"></a></dt>
+<dd><p>Declare the deferred status-change persistence operation.</p>
+<p>No database write is currently performed.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Параметри<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>audit_record</strong> – Audit entry supplied by a future implementation.</p>
+</dd>
+</dl>
+<p class="rubric">References</p>
+<p>REQ-F-014.</p>
+</dd></dl>
+
+</dd></dl>
+
+<p id="module-src.repositories.booking_repository">Repository for booking persistence and interval conflicts.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="src.repositories.booking_repository.BookingRepository">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">src.repositories.booking_repository.</span></span><span class="sig-name descname"><span class="pre">BookingRepository</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">session</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Session</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/repositories/booking_repository.html#BookingRepository"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.repositories.booking_repository.BookingRepository" title="Link to this definition"></a></dt>
+<dd><p>Access booking rows and related creation records in a caller transaction.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="src.repositories.booking_repository.BookingRepository.add_booking">
+<span class="sig-name descname"><span class="pre">add_booking</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">booking</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="models.html#src.models.Booking" title="src.models.entities.Booking"><span class="pre">Booking</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">booking_services</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="models.html#src.models.BookingService" title="src.models.entities.BookingService"><span class="pre">BookingService</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">audit_log</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="models.html#src.models.AuditLog" title="src.models.entities.AuditLog"><span class="pre">AuditLog</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/src/repositories/booking_repository.html#BookingRepository.add_booking"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.repositories.booking_repository.BookingRepository.add_booking" title="Link to this definition"></a></dt>
+<dd><p>Stage a booking, service snapshots, and audit row, then flush.</p>
+<p>The partial unique database index is the final guard against duplicate
+active starts; the surrounding transaction is owned by the service.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Параметри<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>booking</strong> – Booking row to insert.</p></li>
+<li><p><strong>booking_services</strong> – Service and price snapshots for the booking.</p></li>
+<li><p><strong>audit_log</strong> – Initial status audit row.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Викликає<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>SQLAlchemyError</strong> – If flushing violates a database constraint or fails.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.repositories.booking_repository.BookingRepository.find_booking_for_client">
+<span class="sig-name descname"><span class="pre">find_booking_for_client</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">booking_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">UUID</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">client_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">UUID</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="models.html#src.models.Booking" title="src.models.entities.Booking"><span class="pre">Booking</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="reference internal" href="_modules/src/repositories/booking_repository.html#BookingRepository.find_booking_for_client"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.repositories.booking_repository.BookingRepository.find_booking_for_client" title="Link to this definition"></a></dt>
+<dd><p>Find a booking scoped to its client.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Параметри<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>booking_id</strong> – Booking primary key.</p></li>
+<li><p><strong>client_id</strong> – Expected client UUID.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Повертає<span class="colon">:</span></dt>
+<dd class="field-even"><p>The matching booking, or <code class="docutils literal notranslate"><span class="pre">None</span></code> when it is absent or not owned.</p>
+</dd>
+<dt class="field-odd">Викликає<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>SQLAlchemyError</strong> – If the query fails.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.repositories.booking_repository.BookingRepository.find_overlapping">
+<span class="sig-name descname"><span class="pre">find_overlapping</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">master_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">UUID</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_time</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">datetime</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_time</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">datetime</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="models.html#src.models.Booking" title="src.models.entities.Booking"><span class="pre">Booking</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="reference internal" href="_modules/src/repositories/booking_repository.html#BookingRepository.find_overlapping"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.repositories.booking_repository.BookingRepository.find_overlapping" title="Link to this definition"></a></dt>
+<dd><p>Find an active booking overlapping a half-open interval.</p>
+<p>Only statuses in <code class="docutils literal notranslate"><span class="pre">ACTIVE_BOOKING_STATUSES</span></code> occupy the interval.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Параметри<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>master_id</strong> – Master whose schedule is checked.</p></li>
+<li><p><strong>start_time</strong> – Inclusive start of the requested interval.</p></li>
+<li><p><strong>end_time</strong> – Exclusive end of the requested interval.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Повертає<span class="colon">:</span></dt>
+<dd class="field-even"><p>One overlapping active booking, or <code class="docutils literal notranslate"><span class="pre">None</span></code> if none exists.</p>
+</dd>
+<dt class="field-odd">Викликає<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>SQLAlchemyError</strong> – If the query fails.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.repositories.booking_repository.BookingRepository.find_vehicle_for_user">
+<span class="sig-name descname"><span class="pre">find_vehicle_for_user</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">vehicle_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">UUID</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">UUID</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="models.html#src.models.Vehicle" title="src.models.entities.Vehicle"><span class="pre">Vehicle</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="reference internal" href="_modules/src/repositories/booking_repository.html#BookingRepository.find_vehicle_for_user"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.repositories.booking_repository.BookingRepository.find_vehicle_for_user" title="Link to this definition"></a></dt>
+<dd><p>Find a vehicle scoped to its requesting user.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Параметри<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>vehicle_id</strong> – Vehicle primary key.</p></li>
+<li><p><strong>user_id</strong> – Expected owner UUID.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Повертає<span class="colon">:</span></dt>
+<dd class="field-even"><p>The matching vehicle, or <code class="docutils literal notranslate"><span class="pre">None</span></code> when it does not belong to the user.</p>
+</dd>
+<dt class="field-odd">Викликає<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>SQLAlchemyError</strong> – If the query fails.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.repositories.booking_repository.BookingRepository.update_booking_status">
+<span class="sig-name descname"><span class="pre">update_booking_status</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">booking</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="models.html#src.models.Booking" title="src.models.entities.Booking"><span class="pre">Booking</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">status</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">audit_log</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="models.html#src.models.AuditLog" title="src.models.entities.AuditLog"><span class="pre">AuditLog</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/src/repositories/booking_repository.html#BookingRepository.update_booking_status"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.repositories.booking_repository.BookingRepository.update_booking_status" title="Link to this definition"></a></dt>
+<dd><p>Stage a status transition and its audit row in the current transaction.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Параметри<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>booking</strong> – Persistent booking instance to update.</p></li>
+<li><p><strong>status</strong> – New status value.</p></li>
+<li><p><strong>audit_log</strong> – Audit row to add alongside the status change.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Викликає<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>SQLAlchemyError</strong> – If flushing the changes fails.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<p id="module-src.repositories.schedule_repository">Repository for master schedules and active bookings.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="src.repositories.schedule_repository.ScheduleRepository">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">src.repositories.schedule_repository.</span></span><span class="sig-name descname"><span class="pre">ScheduleRepository</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">session</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Session</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/repositories/schedule_repository.html#ScheduleRepository"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.repositories.schedule_repository.ScheduleRepository" title="Link to this definition"></a></dt>
+<dd><p>Read master shifts and bookings that occupy their schedule intervals.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="src.repositories.schedule_repository.ScheduleRepository.list_for_date">
+<span class="sig-name descname"><span class="pre">list_for_date</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">shift_date</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">date</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="models.html#src.models.ScheduleShift" title="src.models.entities.ScheduleShift"><span class="pre">ScheduleShift</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="models.html#src.models.Master" title="src.models.entities.Master"><span class="pre">Master</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="models.html#src.models.Booking" title="src.models.entities.Booking"><span class="pre">Booking</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/src/repositories/schedule_repository.html#ScheduleRepository.list_for_date"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.repositories.schedule_repository.ScheduleRepository.list_for_date" title="Link to this definition"></a></dt>
+<dd><p>Load each shift, its master, and active bookings overlapping that day.</p>
+<p>Day bounds use the Europe/Kyiv timezone, and only active booking statuses
+are included.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Параметри<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>shift_date</strong> – Local calendar date to search.</p>
+</dd>
+<dt class="field-even">Повертає<span class="colon">:</span></dt>
+<dd class="field-even"><p>Tuples of shift, master, and deduplicated active bookings.</p>
+</dd>
+<dt class="field-odd">Викликає<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>SQLAlchemyError</strong> – If the query fails.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.repositories.schedule_repository.ScheduleRepository.lock_for_master_date">
+<span class="sig-name descname"><span class="pre">lock_for_master_date</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">master_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">UUID</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shift_date</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">date</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="models.html#src.models.ScheduleShift" title="src.models.entities.ScheduleShift"><span class="pre">ScheduleShift</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/src/repositories/schedule_repository.html#ScheduleRepository.lock_for_master_date"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.repositories.schedule_repository.ScheduleRepository.lock_for_master_date" title="Link to this definition"></a></dt>
+<dd><p>Lock the master’s shift rows for a date using <code class="docutils literal notranslate"><span class="pre">SELECT</span> <span class="pre">FOR</span> <span class="pre">UPDATE</span></code>.</p>
+<p>The caller must execute this query inside the transaction that creates a
+booking; the lock is held until that transaction ends.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Параметри<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>master_id</strong> – Master whose schedule rows are locked.</p></li>
+<li><p><strong>shift_date</strong> – Local calendar date of the requested shift.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Повертає<span class="colon">:</span></dt>
+<dd class="field-even"><p>The matching shift rows, which may be empty.</p>
+</dd>
+<dt class="field-odd">Викликає<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>SQLAlchemyError</strong> – If the query or row lock fails.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<p id="module-src.repositories.service_repository">Repository for reading service catalog data.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="src.repositories.service_repository.ServiceRepository">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">src.repositories.service_repository.</span></span><span class="sig-name descname"><span class="pre">ServiceRepository</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">session</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Session</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/repositories/service_repository.html#ServiceRepository"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.repositories.service_repository.ServiceRepository" title="Link to this definition"></a></dt>
+<dd><p>Read active catalog services for listing and slot validation.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="src.repositories.service_repository.ServiceRepository.list_active">
+<span class="sig-name descname"><span class="pre">list_active</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="models.html#src.models.Service" title="src.models.entities.Service"><span class="pre">Service</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/src/repositories/service_repository.html#ServiceRepository.list_active"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.repositories.service_repository.ServiceRepository.list_active" title="Link to this definition"></a></dt>
+<dd><p>List every active catalog service.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Повертає<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Active service rows.</p>
+</dd>
+<dt class="field-even">Викликає<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>SQLAlchemyError</strong> – If the query fails.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.repositories.service_repository.ServiceRepository.list_active_by_ids">
+<span class="sig-name descname"><span class="pre">list_active_by_ids</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">service_ids</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">UUID</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="models.html#src.models.Service" title="src.models.entities.Service"><span class="pre">Service</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/src/repositories/service_repository.html#ServiceRepository.list_active_by_ids"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.repositories.service_repository.ServiceRepository.list_active_by_ids" title="Link to this definition"></a></dt>
+<dd><p>List active services whose identifiers were requested.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Параметри<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>service_ids</strong> – Service UUIDs to match; duplicate identifiers do not
+produce duplicate rows.</p>
+</dd>
+<dt class="field-even">Повертає<span class="colon">:</span></dt>
+<dd class="field-even"><p>Matching active service rows. Missing or inactive IDs are omitted.</p>
+</dd>
+<dt class="field-odd">Викликає<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>SQLAlchemyError</strong> – If the query fails.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<p id="module-src.repositories.user_repository">Repository for user anonymization persistence.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="src.repositories.user_repository.UserRepository">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">src.repositories.user_repository.</span></span><span class="sig-name descname"><span class="pre">UserRepository</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">session</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Session</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/repositories/user_repository.html#UserRepository"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.repositories.user_repository.UserRepository" title="Link to this definition"></a></dt>
+<dd><p>Read and anonymize user data while retaining booking and audit history.</p>
+<p class="rubric">References</p>
+<p>REQ-NF-006.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="src.repositories.user_repository.UserRepository.anonymize_profile">
+<span class="sig-name descname"><span class="pre">anonymize_profile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">user</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="models.html#src.models.User" title="src.models.entities.User"><span class="pre">User</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/src/repositories/user_repository.html#UserRepository.anonymize_profile"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.repositories.user_repository.UserRepository.anonymize_profile" title="Link to this definition"></a></dt>
+<dd><p>Replace profile and vehicle identifiers and redact cancellation reasons.</p>
+<p>Booking and audit row counts are retained; vehicle records remain present.
+The caller is responsible for wrapping all updates in one transaction.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Параметри<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>user</strong> – Persistent user row to anonymize.</p>
+</dd>
+<dt class="field-even">Викликає<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>SQLAlchemyError</strong> – If a database operation fails.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.repositories.user_repository.UserRepository.get_by_id_for_update">
+<span class="sig-name descname"><span class="pre">get_by_id_for_update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">user_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">UUID</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="models.html#src.models.User" title="src.models.entities.User"><span class="pre">User</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></span><a class="reference internal" href="_modules/src/repositories/user_repository.html#UserRepository.get_by_id_for_update"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.repositories.user_repository.UserRepository.get_by_id_for_update" title="Link to this definition"></a></dt>
+<dd><p>Lock the selected user row for the current transaction.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Параметри<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>user_id</strong> – User primary key.</p>
+</dd>
+<dt class="field-even">Повертає<span class="colon">:</span></dt>
+<dd class="field-even"><p>The locked user row, or <code class="docutils literal notranslate"><span class="pre">None</span></code> if it does not exist.</p>
+</dd>
+<dt class="field-odd">Викликає<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>SQLAlchemyError</strong> – If the query or row lock fails.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<p id="module-src.repositories.vehicle_repository">Repository for client vehicle garage persistence.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="src.repositories.vehicle_repository.VehicleRepository">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">src.repositories.vehicle_repository.</span></span><span class="sig-name descname"><span class="pre">VehicleRepository</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">session</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Session</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/repositories/vehicle_repository.html#VehicleRepository"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.repositories.vehicle_repository.VehicleRepository" title="Link to this definition"></a></dt>
+<dd><p>Read and persist vehicles belonging to clients.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="src.repositories.vehicle_repository.VehicleRepository.add_vehicle">
+<span class="sig-name descname"><span class="pre">add_vehicle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">vehicle</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="models.html#src.models.Vehicle" title="src.models.entities.Vehicle"><span class="pre">Vehicle</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="models.html#src.models.Vehicle" title="src.models.entities.Vehicle"><span class="pre">Vehicle</span></a></span></span><a class="reference internal" href="_modules/src/repositories/vehicle_repository.html#VehicleRepository.add_vehicle"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.repositories.vehicle_repository.VehicleRepository.add_vehicle" title="Link to this definition"></a></dt>
+<dd><p>Persist and commit a new vehicle row.</p>
+<p>This method commits the session rather than leaving the transaction to
+its caller.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Параметри<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>vehicle</strong> – New vehicle instance to persist.</p>
+</dd>
+<dt class="field-even">Повертає<span class="colon">:</span></dt>
+<dd class="field-even"><p>The same instance after database-generated values are available.</p>
+</dd>
+<dt class="field-odd">Викликає<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>SQLAlchemyError</strong> – If persistence or commit fails.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.repositories.vehicle_repository.VehicleRepository.count_for_user">
+<span class="sig-name descname"><span class="pre">count_for_user</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">user_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">UUID</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="_modules/src/repositories/vehicle_repository.html#VehicleRepository.count_for_user"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.repositories.vehicle_repository.VehicleRepository.count_for_user" title="Link to this definition"></a></dt>
+<dd><p>Count vehicles belonging to a user.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Параметри<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>user_id</strong> – Owner UUID used to scope the count.</p>
+</dd>
+<dt class="field-even">Повертає<span class="colon">:</span></dt>
+<dd class="field-even"><p>Number of persisted vehicles, or zero when no count is returned.</p>
+</dd>
+<dt class="field-odd">Викликає<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>SQLAlchemyError</strong> – If the count query fails.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.repositories.vehicle_repository.VehicleRepository.list_for_user">
+<span class="sig-name descname"><span class="pre">list_for_user</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">user_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">UUID</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="models.html#src.models.Vehicle" title="src.models.entities.Vehicle"><span class="pre">Vehicle</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/src/repositories/vehicle_repository.html#VehicleRepository.list_for_user"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.repositories.vehicle_repository.VehicleRepository.list_for_user" title="Link to this definition"></a></dt>
+<dd><p>List up to the configured per-user vehicle limit.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Параметри<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>user_id</strong> – Owner UUID used to scope the query.</p>
+</dd>
+<dt class="field-even">Повертає<span class="colon">:</span></dt>
+<dd class="field-even"><p>At most <code class="docutils literal notranslate"><span class="pre">MAX_VEHICLES_PER_USER</span></code> matching vehicle rows.</p>
+</dd>
+<dt class="field-odd">Викликає<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>SQLAlchemyError</strong> – If the query fails.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="src.services.html" class="btn btn-neutral float-left" title="src.services" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="src.core.html" class="btn btn-neutral float-right" title="src.core" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, AutoBook SDD.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

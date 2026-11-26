@@ -1,0 +1,579 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="uk" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>src.services &mdash; AutoBook SDD  documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=f1837318"></script>
+      <script src="_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Індекс" href="genindex.html" />
+    <link rel="search" title="Пошук" href="search.html" />
+    <link rel="next" title="src.repositories" href="src.repositories.html" />
+    <link rel="prev" title="src.api" href="src.api.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            AutoBook SDD
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Пакети</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="models.html">src.models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="src.api.html">src.api</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">src.services</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#src.services.audit_service.AuditService"><code class="docutils literal notranslate"><span class="pre">AuditService</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#src.services.audit_service.AuditService.record_status_change"><code class="docutils literal notranslate"><span class="pre">AuditService.record_status_change()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#src.services.booking_service.BookingCancellationNotAllowed"><code class="docutils literal notranslate"><span class="pre">BookingCancellationNotAllowed</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#src.services.booking_service.BookingConflict"><code class="docutils literal notranslate"><span class="pre">BookingConflict</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#src.services.booking_service.BookingNotFound"><code class="docutils literal notranslate"><span class="pre">BookingNotFound</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#src.services.booking_service.BookingRejected"><code class="docutils literal notranslate"><span class="pre">BookingRejected</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#src.services.booking_service.BookingService"><code class="docutils literal notranslate"><span class="pre">BookingService</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#src.services.booking_service.BookingService.cancel_booking"><code class="docutils literal notranslate"><span class="pre">BookingService.cancel_booking()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#src.services.booking_service.BookingService.create_booking"><code class="docutils literal notranslate"><span class="pre">BookingService.create_booking()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#src.services.booking_service.LateCancellationDenied"><code class="docutils literal notranslate"><span class="pre">LateCancellationDenied</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#src.services.catalog_service.CatalogService"><code class="docutils literal notranslate"><span class="pre">CatalogService</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#src.services.catalog_service.CatalogService.get_services"><code class="docutils literal notranslate"><span class="pre">CatalogService.get_services()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#src.services.slot_engine.Slot"><code class="docutils literal notranslate"><span class="pre">Slot</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#src.services.slot_engine.Slot.master_id"><code class="docutils literal notranslate"><span class="pre">Slot.master_id</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#src.services.slot_engine.Slot.master_name"><code class="docutils literal notranslate"><span class="pre">Slot.master_name</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#src.services.slot_engine.Slot.start_time"><code class="docutils literal notranslate"><span class="pre">Slot.start_time</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#src.services.slot_engine.Slot.end_time"><code class="docutils literal notranslate"><span class="pre">Slot.end_time</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#src.services.slot_engine.SlotEngine"><code class="docutils literal notranslate"><span class="pre">SlotEngine</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#src.services.slot_engine.SlotEngine.get_active_services"><code class="docutils literal notranslate"><span class="pre">SlotEngine.get_active_services()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#src.services.slot_engine.SlotEngine.get_slots"><code class="docutils literal notranslate"><span class="pre">SlotEngine.get_slots()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#src.services.slot_engine.SlotEngine.get_slots_for_services"><code class="docutils literal notranslate"><span class="pre">SlotEngine.get_slots_for_services()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#src.services.slot_engine.SlotSearchRejected"><code class="docutils literal notranslate"><span class="pre">SlotSearchRejected</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#src.services.slot_engine.calculate_slots"><code class="docutils literal notranslate"><span class="pre">calculate_slots()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#src.services.user_service.AnonymizationForbidden"><code class="docutils literal notranslate"><span class="pre">AnonymizationForbidden</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#src.services.user_service.UserService"><code class="docutils literal notranslate"><span class="pre">UserService</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#src.services.user_service.UserService.anonymize_user"><code class="docutils literal notranslate"><span class="pre">UserService.anonymize_user()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#src.services.vehicle_service.GarageLimitExceeded"><code class="docutils literal notranslate"><span class="pre">GarageLimitExceeded</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#src.services.vehicle_service.VehicleService"><code class="docutils literal notranslate"><span class="pre">VehicleService</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#src.services.vehicle_service.VehicleService.create_vehicle"><code class="docutils literal notranslate"><span class="pre">VehicleService.create_vehicle()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#src.services.vehicle_service.VehicleService.get_vehicles"><code class="docutils literal notranslate"><span class="pre">VehicleService.get_vehicles()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="src.repositories.html">src.repositories</a></li>
+<li class="toctree-l1"><a class="reference internal" href="src.core.html">src.core</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">AutoBook SDD</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">src.services</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/src.services.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="src-services">
+<h1>src.services<a class="headerlink" href="#src-services" title="Link to this heading"></a></h1>
+<p>Прикладні сервіси для пошуку слотів, бронювання, каталогу, гаража,
+знеособлення та аудиту.</p>
+<p id="module-src.services">Business rules and use-case orchestration for the AutoBook application.</p>
+<p id="module-src.services.audit_service">Audit service boundary for status changes; persistence is not implemented.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="src.services.audit_service.AuditService">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">src.services.audit_service.</span></span><span class="sig-name descname"><span class="pre">AuditService</span></span><a class="reference internal" href="_modules/src/services/audit_service.html#AuditService"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.services.audit_service.AuditService" title="Link to this definition"></a></dt>
+<dd><p>Placeholder for the PII-free audit-record use case.</p>
+<p>The operation currently performs no work and must not be described as
+persisted behavior.</p>
+<p class="rubric">References</p>
+<p>REQ-F-014.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="src.services.audit_service.AuditService.record_status_change">
+<span class="sig-name descname"><span class="pre">record_status_change</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">actor_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">UUID</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">entity_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">UUID</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">old_status</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">new_status</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/src/services/audit_service.html#AuditService.record_status_change"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.services.audit_service.AuditService.record_status_change" title="Link to this definition"></a></dt>
+<dd><p>Declare the deferred status-transition recording operation.</p>
+<p>No audit record is currently written.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Параметри<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>actor_id</strong> – UUID of the actor associated with the transition.</p></li>
+<li><p><strong>entity_id</strong> – UUID of the changed entity.</p></li>
+<li><p><strong>old_status</strong> – Status before the transition.</p></li>
+<li><p><strong>new_status</strong> – Status after the transition.</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">References</p>
+<p>REQ-F-014.</p>
+</dd></dl>
+
+</dd></dl>
+
+<p id="module-src.services.booking_service">Validate and coordinate booking creation and client cancellation transactions.</p>
+<dl class="py exception">
+<dt class="sig sig-object py" id="src.services.booking_service.BookingCancellationNotAllowed">
+<span class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">src.services.booking_service.</span></span><span class="sig-name descname"><span class="pre">BookingCancellationNotAllowed</span></span><a class="reference internal" href="_modules/src/services/booking_service.html#BookingCancellationNotAllowed"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.services.booking_service.BookingCancellationNotAllowed" title="Link to this definition"></a></dt>
+<dd><p>The booking is not in the CONFIRMED state.</p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="src.services.booking_service.BookingConflict">
+<span class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">src.services.booking_service.</span></span><span class="sig-name descname"><span class="pre">BookingConflict</span></span><a class="reference internal" href="_modules/src/services/booking_service.html#BookingConflict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.services.booking_service.BookingConflict" title="Link to this definition"></a></dt>
+<dd><p>The requested interval conflicts with an active booking or unique index.</p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="src.services.booking_service.BookingNotFound">
+<span class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">src.services.booking_service.</span></span><span class="sig-name descname"><span class="pre">BookingNotFound</span></span><a class="reference internal" href="_modules/src/services/booking_service.html#BookingNotFound"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.services.booking_service.BookingNotFound" title="Link to this definition"></a></dt>
+<dd><p>The booking does not exist or is not owned by the requesting client.</p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="src.services.booking_service.BookingRejected">
+<span class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">src.services.booking_service.</span></span><span class="sig-name descname"><span class="pre">BookingRejected</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">reason</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">detail</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/services/booking_service.html#BookingRejected"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.services.booking_service.BookingRejected" title="Link to this definition"></a></dt>
+<dd><p>A booking request rejected by documented validation rules.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="src.services.booking_service.BookingService">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">src.services.booking_service.</span></span><span class="sig-name descname"><span class="pre">BookingService</span></span><a class="reference internal" href="_modules/src/services/booking_service.html#BookingService"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.services.booking_service.BookingService" title="Link to this definition"></a></dt>
+<dd><p>Coordinate booking validation, persistence, and cancellation rules.</p>
+<p>Booking creation locks the master’s shift rows in its transaction and relies
+on the partial unique index <code class="docutils literal notranslate"><span class="pre">idx_no_double_booking</span></code> as the final concurrent
+conflict guard.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="src.services.booking_service.BookingService.cancel_booking">
+<span class="sig-name descname"><span class="pre">cancel_booking</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">session</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Session</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">UUID</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">booking_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">now</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">datetime</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reason</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="models.html#src.models.Booking" title="src.models.entities.Booking"><span class="pre">Booking</span></a></span></span><a class="reference internal" href="_modules/src/services/booking_service.html#BookingService.cancel_booking"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.services.booking_service.BookingService.cancel_booking" title="Link to this definition"></a></dt>
+<dd><p>Cancel an owned, confirmed booking at least two hours before start.</p>
+<p>A blank or whitespace-only reason is treated as absent; non-empty values
+are limited to 255 characters. The reason is stored for the booking and
+audit history but is never logged as text; only its presence and length
+are logged.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Параметри<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>session</strong> – SQLAlchemy session for the cancellation transaction.</p></li>
+<li><p><strong>user_id</strong> – Authenticated client’s UUID.</p></li>
+<li><p><strong>booking_id</strong> – Booking UUID in string form.</p></li>
+<li><p><strong>now</strong> – Current time provided by <code class="docutils literal notranslate"><span class="pre">get_clock</span></code>.</p></li>
+<li><p><strong>reason</strong> – Optional cancellation reason.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Повертає<span class="colon">:</span></dt>
+<dd class="field-even"><p>The updated booking with <code class="docutils literal notranslate"><span class="pre">CANCELLED_BY_CLIENT</span></code> status.</p>
+</dd>
+<dt class="field-odd">Викликає<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><a class="reference internal" href="#src.services.booking_service.BookingRejected" title="src.services.booking_service.BookingRejected"><strong>BookingRejected</strong></a> – If a provided reason exceeds 255 characters.</p></li>
+<li><p><a class="reference internal" href="#src.services.booking_service.BookingNotFound" title="src.services.booking_service.BookingNotFound"><strong>BookingNotFound</strong></a> – If the booking is invalid, missing, or not owned by
+    the client.</p></li>
+<li><p><a class="reference internal" href="#src.services.booking_service.BookingCancellationNotAllowed" title="src.services.booking_service.BookingCancellationNotAllowed"><strong>BookingCancellationNotAllowed</strong></a> – If the booking is not <code class="docutils literal notranslate"><span class="pre">CONFIRMED</span></code>.</p></li>
+<li><p><a class="reference internal" href="#src.services.booking_service.LateCancellationDenied" title="src.services.booking_service.LateCancellationDenied"><strong>LateCancellationDenied</strong></a> – If fewer than two hours remain.</p></li>
+<li><p><strong>SQLAlchemyError</strong> – If the transaction fails; database errors are logged
+    and re-raised.</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">References</p>
+<p>REQ-F-007, REQ-F-015, REQ-F-016.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.services.booking_service.BookingService.create_booking">
+<span class="sig-name descname"><span class="pre">create_booking</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">session</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Session</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">UUID</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">payload</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">now</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">datetime</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="models.html#src.models.Booking" title="src.models.entities.Booking"><span class="pre">Booking</span></a></span></span><a class="reference internal" href="_modules/src/services/booking_service.html#BookingService.create_booking"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.services.booking_service.BookingService.create_booking" title="Link to this definition"></a></dt>
+<dd><p>Create a pending booking with service snapshots and an audit row.</p>
+<p>The input start must be timezone-aware and aligned to the configured
+slot grid. The injected <code class="docutils literal notranslate"><span class="pre">now</span></code> value is used for availability checks.
+Database changes are committed together; the partial unique index
+<code class="docutils literal notranslate"><span class="pre">idx_no_double_booking</span></code> is translated to <code class="docutils literal notranslate"><span class="pre">BookingConflict</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Параметри<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>session</strong> – SQLAlchemy session for the booking transaction.</p></li>
+<li><p><strong>user_id</strong> – Authenticated client’s UUID.</p></li>
+<li><p><strong>payload</strong> – Mapping containing vehicle, master, service IDs, and start time.</p></li>
+<li><p><strong>now</strong> – Current time provided by <code class="docutils literal notranslate"><span class="pre">get_clock</span></code>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Повертає<span class="colon">:</span></dt>
+<dd class="field-even"><p>The newly persisted booking in <code class="docutils literal notranslate"><span class="pre">PENDING</span></code> status.</p>
+</dd>
+<dt class="field-odd">Викликає<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><a class="reference internal" href="#src.services.booking_service.BookingRejected" title="src.services.booking_service.BookingRejected"><strong>BookingRejected</strong></a> – If the payload, vehicle ownership, services, time,
+    or slot availability is invalid.</p></li>
+<li><p><a class="reference internal" href="#src.services.booking_service.BookingConflict" title="src.services.booking_service.BookingConflict"><strong>BookingConflict</strong></a> – If the requested interval conflicts with another
+    active booking or the partial unique index.</p></li>
+<li><p><strong>SQLAlchemyError</strong> – For other database failures; these are logged and
+    re-raised.</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">References</p>
+<p>REQ-F-002, REQ-F-006, REQ-NF-003, REQ-NF-004.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="src.services.booking_service.LateCancellationDenied">
+<span class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">src.services.booking_service.</span></span><span class="sig-name descname"><span class="pre">LateCancellationDenied</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hours_before</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/services/booking_service.html#LateCancellationDenied"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.services.booking_service.LateCancellationDenied" title="Link to this definition"></a></dt>
+<dd><p>The booking starts less than two hours from the current time.</p>
+</dd></dl>
+
+<p id="module-src.services.catalog_service">Business logic for the public service catalog.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="src.services.catalog_service.CatalogService">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">src.services.catalog_service.</span></span><span class="sig-name descname"><span class="pre">CatalogService</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">repository</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="src.repositories.html#src.repositories.service_repository.ServiceRepository" title="src.repositories.service_repository.ServiceRepository"><span class="pre">ServiceRepository</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/services/catalog_service.html#CatalogService"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.services.catalog_service.CatalogService" title="Link to this definition"></a></dt>
+<dd><p>Service boundary for reading the active service catalog (REQ-F-001).</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="src.services.catalog_service.CatalogService.get_services">
+<span class="sig-name descname"><span class="pre">get_services</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="models.html#src.models.Service" title="src.models.entities.Service"><span class="pre">Service</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/src/services/catalog_service.html#CatalogService.get_services"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.services.catalog_service.CatalogService.get_services" title="Link to this definition"></a></dt>
+<dd><p>Read and log the active catalog entries.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Повертає<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Active service rows.</p>
+</dd>
+<dt class="field-even">Викликає<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>SQLAlchemyError</strong> – If repository access fails; the error is logged and
+    re-raised.</p>
+</dd>
+</dl>
+<p class="rubric">References</p>
+<p>REQ-F-001.</p>
+</dd></dl>
+
+</dd></dl>
+
+<p id="module-src.services.slot_engine">Slot calculation and search service (REQ-F-002, REQ-F-004).</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="src.services.slot_engine.Slot">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">src.services.slot_engine.</span></span><span class="sig-name descname"><span class="pre">Slot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">master_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">UUID</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">master_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_time</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">datetime</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_time</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">datetime</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/services/slot_engine.html#Slot"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.services.slot_engine.Slot" title="Link to this definition"></a></dt>
+<dd><p>A continuous available interval for one master.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="src.services.slot_engine.Slot.master_id">
+<span class="sig-name descname"><span class="pre">master_id</span></span><a class="headerlink" href="#src.services.slot_engine.Slot.master_id" title="Link to this definition"></a></dt>
+<dd><p>UUID of the master assigned to the interval.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>uuid.UUID</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="src.services.slot_engine.Slot.master_name">
+<span class="sig-name descname"><span class="pre">master_name</span></span><a class="headerlink" href="#src.services.slot_engine.Slot.master_name" title="Link to this definition"></a></dt>
+<dd><p>Display name returned by the slot API.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="src.services.slot_engine.Slot.start_time">
+<span class="sig-name descname"><span class="pre">start_time</span></span><a class="headerlink" href="#src.services.slot_engine.Slot.start_time" title="Link to this definition"></a></dt>
+<dd><p>Timezone-aware interval start.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>datetime.datetime</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="src.services.slot_engine.Slot.end_time">
+<span class="sig-name descname"><span class="pre">end_time</span></span><a class="headerlink" href="#src.services.slot_engine.Slot.end_time" title="Link to this definition"></a></dt>
+<dd><p>Timezone-aware interval end.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>datetime.datetime</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="src.services.slot_engine.SlotEngine">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">src.services.slot_engine.</span></span><span class="sig-name descname"><span class="pre">SlotEngine</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">session</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Session</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/services/slot_engine.html#SlotEngine"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.services.slot_engine.SlotEngine" title="Link to this definition"></a></dt>
+<dd><p>Resolve active services and calculate availability from schedule data.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="src.services.slot_engine.SlotEngine.get_active_services">
+<span class="sig-name descname"><span class="pre">get_active_services</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">service_ids</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">UUID</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="models.html#src.models.Service" title="src.models.entities.Service"><span class="pre">Service</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/src/services/slot_engine.html#SlotEngine.get_active_services"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.services.slot_engine.SlotEngine.get_active_services" title="Link to this definition"></a></dt>
+<dd><p>Resolve every requested UUID to an active service.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Параметри<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>service_ids</strong> – Service UUIDs supplied for the search.</p>
+</dd>
+<dt class="field-even">Повертає<span class="colon">:</span></dt>
+<dd class="field-even"><p>Matching active service rows.</p>
+</dd>
+<dt class="field-odd">Викликає<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#src.services.slot_engine.SlotSearchRejected" title="src.services.slot_engine.SlotSearchRejected"><strong>SlotSearchRejected</strong></a> – If any requested UUID is missing or inactive.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.services.slot_engine.SlotEngine.get_slots">
+<span class="sig-name descname"><span class="pre">get_slots</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">service_ids</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">UUID</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">slot_date</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">date</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">now</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">datetime</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#src.services.slot_engine.Slot" title="src.services.slot_engine.Slot"><span class="pre">Slot</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/src/services/slot_engine.html#SlotEngine.get_slots"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.services.slot_engine.SlotEngine.get_slots" title="Link to this definition"></a></dt>
+<dd><p>Find slots for requested active services within the search horizon.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Параметри<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>service_ids</strong> – Service UUIDs that determine the required duration.</p></li>
+<li><p><strong>slot_date</strong> – Local calendar date to search.</p></li>
+<li><p><strong>now</strong> – Current time supplied by <code class="docutils literal notranslate"><span class="pre">get_clock</span></code>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Повертає<span class="colon">:</span></dt>
+<dd class="field-even"><p>Available slots sorted by start time and master UUID.</p>
+</dd>
+<dt class="field-odd">Викликає<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#src.services.slot_engine.SlotSearchRejected" title="src.services.slot_engine.SlotSearchRejected"><strong>SlotSearchRejected</strong></a> – If the date is outside the configured horizon or
+    a requested service is missing or inactive.</p>
+</dd>
+</dl>
+<p class="rubric">References</p>
+<p>REQ-F-002, REQ-F-004.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.services.slot_engine.SlotEngine.get_slots_for_services">
+<span class="sig-name descname"><span class="pre">get_slots_for_services</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">services</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="models.html#src.models.Service" title="src.models.entities.Service"><span class="pre">Service</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">slot_date</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">date</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">now</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">datetime</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#src.services.slot_engine.Slot" title="src.services.slot_engine.Slot"><span class="pre">Slot</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/src/services/slot_engine.html#SlotEngine.get_slots_for_services"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.services.slot_engine.SlotEngine.get_slots_for_services" title="Link to this definition"></a></dt>
+<dd><p>Calculate availability for already-resolved services on one date.</p>
+<p>This entry point does not resolve or validate service identifiers; callers
+must supply active service rows.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Параметри<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>services</strong> – Active services whose durations are combined.</p></li>
+<li><p><strong>slot_date</strong> – Local calendar date to search.</p></li>
+<li><p><strong>now</strong> – Current time supplied by the caller’s clock.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Повертає<span class="colon">:</span></dt>
+<dd class="field-even"><p>Available slots sorted by start time and master UUID.</p>
+</dd>
+<dt class="field-odd">Викликає<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#src.services.slot_engine.SlotSearchRejected" title="src.services.slot_engine.SlotSearchRejected"><strong>SlotSearchRejected</strong></a> – If the date is outside the configured horizon.</p>
+</dd>
+</dl>
+<p class="rubric">References</p>
+<p>REQ-F-002, REQ-F-004.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="src.services.slot_engine.SlotSearchRejected">
+<span class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">src.services.slot_engine.</span></span><span class="sig-name descname"><span class="pre">SlotSearchRejected</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">reason</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">detail</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/services/slot_engine.html#SlotSearchRejected"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.services.slot_engine.SlotSearchRejected" title="Link to this definition"></a></dt>
+<dd><p>A slot request that violates a documented search constraint.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.services.slot_engine.calculate_slots">
+<span class="sig-prename descclassname"><span class="pre">src.services.slot_engine.</span></span><span class="sig-name descname"><span class="pre">calculate_slots</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">shifts</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="models.html#src.models.ScheduleShift" title="src.models.entities.ScheduleShift"><span class="pre">ScheduleShift</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="models.html#src.models.Master" title="src.models.entities.Master"><span class="pre">Master</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="models.html#src.models.Booking" title="src.models.entities.Booking"><span class="pre">Booking</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">duration_minutes</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">slot_date</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">date</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">now</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">datetime</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#src.services.slot_engine.Slot" title="src.services.slot_engine.Slot"><span class="pre">Slot</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/src/services/slot_engine.html#calculate_slots"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.services.slot_engine.calculate_slots" title="Link to this definition"></a></dt>
+<dd><p>Calculate candidate intervals from shifts and active bookings.</p>
+<p>Candidate starts advance on the configured slot grid in Europe/Kyiv time.
+Intervals must fit within a shift, avoid its break and active bookings, and
+start at least the configured minimum notice after <code class="docutils literal notranslate"><span class="pre">now</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Параметри<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>shifts</strong> – Shift, master, and active-booking groups for the requested date.</p></li>
+<li><p><strong>duration_minutes</strong> – Combined service duration.</p></li>
+<li><p><strong>slot_date</strong> – Local calendar date of the shifts.</p></li>
+<li><p><strong>now</strong> – Current time supplied by the caller’s clock.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Повертає<span class="colon">:</span></dt>
+<dd class="field-even"><p>Available slots sorted by start time and then master UUID.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p id="module-src.services.user_service">Business logic for account anonymization.</p>
+<dl class="py exception">
+<dt class="sig sig-object py" id="src.services.user_service.AnonymizationForbidden">
+<span class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">src.services.user_service.</span></span><span class="sig-name descname"><span class="pre">AnonymizationForbidden</span></span><a class="reference internal" href="_modules/src/services/user_service.html#AnonymizationForbidden"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.services.user_service.AnonymizationForbidden" title="Link to this definition"></a></dt>
+<dd><p>The authenticated user does not have the CLIENT role.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="src.services.user_service.UserService">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">src.services.user_service.</span></span><span class="sig-name descname"><span class="pre">UserService</span></span><a class="reference internal" href="_modules/src/services/user_service.html#UserService"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.services.user_service.UserService" title="Link to this definition"></a></dt>
+<dd><p>Service boundary for account anonymization (REQ-NF-006).</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="src.services.user_service.UserService.anonymize_user">
+<span class="sig-name descname"><span class="pre">anonymize_user</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">session</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Session</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">UUID</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">role</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="models.html#src.models.User" title="src.models.entities.User"><span class="pre">User</span></a></span></span><a class="reference internal" href="_modules/src/services/user_service.html#UserService.anonymize_user"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.services.user_service.UserService.anonymize_user" title="Link to this definition"></a></dt>
+<dd><p>Anonymize a client while retaining booking and audit history.</p>
+<p>The user row is locked and all profile, vehicle, and cancellation-reason
+updates occur in one transaction. Raw cancellation reasons are replaced
+in retained history; they are not logged.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Параметри<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>session</strong> – Session that owns the anonymization transaction.</p></li>
+<li><p><strong>user_id</strong> – Authenticated user’s UUID.</p></li>
+<li><p><strong>role</strong> – Authenticated role; only <code class="docutils literal notranslate"><span class="pre">CLIENT</span></code> may use this operation.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Повертає<span class="colon">:</span></dt>
+<dd class="field-even"><p>The updated user row.</p>
+</dd>
+<dt class="field-odd">Викликає<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><a class="reference internal" href="#src.services.user_service.AnonymizationForbidden" title="src.services.user_service.AnonymizationForbidden"><strong>AnonymizationForbidden</strong></a> – If the role is not <code class="docutils literal notranslate"><span class="pre">CLIENT</span></code>.</p></li>
+<li><p><strong>LookupError</strong> – If the authenticated user row does not exist.</p></li>
+<li><p><strong>SQLAlchemyError</strong> – If the transaction fails; the failure is logged and
+    re-raised.</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">References</p>
+<p>REQ-NF-006.</p>
+</dd></dl>
+
+</dd></dl>
+
+<p id="module-src.services.vehicle_service">Business logic for a client’s vehicle garage.</p>
+<dl class="py exception">
+<dt class="sig sig-object py" id="src.services.vehicle_service.GarageLimitExceeded">
+<span class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">src.services.vehicle_service.</span></span><span class="sig-name descname"><span class="pre">GarageLimitExceeded</span></span><a class="reference internal" href="_modules/src/services/vehicle_service.html#GarageLimitExceeded"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.services.vehicle_service.GarageLimitExceeded" title="Link to this definition"></a></dt>
+<dd><p>Raised when a client attempts to exceed the garage limit.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="src.services.vehicle_service.VehicleService">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">src.services.vehicle_service.</span></span><span class="sig-name descname"><span class="pre">VehicleService</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">repository</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="src.repositories.html#src.repositories.vehicle_repository.VehicleRepository" title="src.repositories.vehicle_repository.VehicleRepository"><span class="pre">VehicleRepository</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/services/vehicle_service.html#VehicleService"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.services.vehicle_service.VehicleService" title="Link to this definition"></a></dt>
+<dd><p>Service boundary for a client’s vehicle garage (REQ-F-005).</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="src.services.vehicle_service.VehicleService.create_vehicle">
+<span class="sig-name descname"><span class="pre">create_vehicle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">user_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">UUID</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">make</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">year</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">license_plate</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vin</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="models.html#src.models.Vehicle" title="src.models.entities.Vehicle"><span class="pre">Vehicle</span></a></span></span><a class="reference internal" href="_modules/src/services/vehicle_service.html#VehicleService.create_vehicle"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.services.vehicle_service.VehicleService.create_vehicle" title="Link to this definition"></a></dt>
+<dd><p>Add a vehicle unless the client’s garage has reached its limit.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Параметри<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>user_id</strong> – Authenticated client’s UUID.</p></li>
+<li><p><strong>make</strong> – Vehicle manufacturer.</p></li>
+<li><p><strong>model</strong> – Vehicle model.</p></li>
+<li><p><strong>year</strong> – Vehicle model year.</p></li>
+<li><p><strong>license_plate</strong> – Registration identifier.</p></li>
+<li><p><strong>vin</strong> – Optional vehicle identification number.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Повертає<span class="colon">:</span></dt>
+<dd class="field-even"><p>The persisted vehicle row.</p>
+</dd>
+<dt class="field-odd">Викликає<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#src.services.vehicle_service.GarageLimitExceeded" title="src.services.vehicle_service.GarageLimitExceeded"><strong>GarageLimitExceeded</strong></a> – If the client already has the configured
+    maximum number of vehicles.</p>
+</dd>
+</dl>
+<p class="rubric">References</p>
+<p>REQ-F-005.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="src.services.vehicle_service.VehicleService.get_vehicles">
+<span class="sig-name descname"><span class="pre">get_vehicles</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">user_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">UUID</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="models.html#src.models.Vehicle" title="src.models.entities.Vehicle"><span class="pre">Vehicle</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/src/services/vehicle_service.html#VehicleService.get_vehicles"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.services.vehicle_service.VehicleService.get_vehicles" title="Link to this definition"></a></dt>
+<dd><p>List vehicles belonging to one client.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Параметри<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>user_id</strong> – Authenticated client’s UUID.</p>
+</dd>
+<dt class="field-even">Повертає<span class="colon">:</span></dt>
+<dd class="field-even"><p>The repository’s limited list of vehicle rows.</p>
+</dd>
+</dl>
+<p class="rubric">References</p>
+<p>REQ-F-005.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="src.api.html" class="btn btn-neutral float-left" title="src.api" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="src.repositories.html" class="btn btn-neutral float-right" title="src.repositories" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, AutoBook SDD.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

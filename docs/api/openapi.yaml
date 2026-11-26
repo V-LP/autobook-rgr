@@ -1,0 +1,468 @@
+openapi: 3.0.3
+info:
+  title: AutoBook SDD REST API
+  description: >-
+    Контракт REST API для системи онлайн-запису на СТО (SRS v1.0).
+    Кожна операція містить розширення x-req-ids зі зв'язком із вимогами SRS.
+  version: 1.0.0
+  license:
+    name: Educational use only
+    url: https://example.com/license
+servers:
+  - url: http://127.0.0.1:4010
+    description: Local Mock Server (Prism)
+
+security:
+  - bearerAuth: []
+
+tags:
+  - name: Services
+    description: Каталог послуг СТО
+  - name: Vehicles
+    description: «Мій гараж» клієнта
+  - name: Slots
+    description: Slot Engine - пошук вільних часових вікон
+  - name: Bookings
+    description: Бронювання та їх скасування
+  - name: Users
+    description: Дії над профілем користувача (GDPR)
+
+paths:
+  /api/v1/services:
+    get:
+      tags: [Services]
+      summary: Каталог активних послуг та цін
+      operationId: getServices
+      x-req-ids: [REQ-F-001]
+      security: []
+      responses:
+        '200':
+          description: Каталог активних послуг
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Service'
+              examples:
+                success_list:
+                  value:
+                    - id: "123e4567-e89b-12d3-a456-426614174000"
+                      title: "Заміна мастила"
+                      duration_minutes: 30
+                      price: 500.00
+                    - id: "123e4567-e89b-12d3-a456-426614174001"
+                      title: "Діагностика ходової"
+                      duration_minutes: 60
+                      price: 800.00
+
+  /api/v1/vehicles:
+    get:
+      tags: [Vehicles]
+      summary: Перегляд автомобілів у «Гаражі» клієнта
+      operationId: getVehicles
+      x-req-ids: [REQ-F-005]
+      responses:
+        '200':
+          description: Список авто клієнта (до 5)
+          content:
+            application/json:
+              schema:
+                type: array
+                maxItems: 5
+                items:
+                  $ref: '#/components/schemas/Vehicle'
+              examples:
+                garage:
+                  value:
+                    - id: "v-1"
+                      make: "Skoda"
+                      model: "Octavia"
+                      year: 2018
+                      license_plate: "AA1234KK"
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      tags: [Vehicles]
+      summary: Додавання авто до «Гаража»
+      operationId: createVehicle
+      x-req-ids: [REQ-F-005]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VehicleRequest'
+      responses:
+        '201':
+          description: Авто додано
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Vehicle'
+              examples:
+                created:
+                  value:
+                    id: "v-2"
+                    make: "Toyota"
+                    model: "Corolla"
+                    year: 2020
+                    license_plate: "BC5678AX"
+        '400':
+          description: Помилка валідації або перевищено ліміт 5 авто
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                garage_limit:
+                  value:
+                    type: "https://autobook.local/errors/garage-limit"
+                    title: "Garage Limit Exceeded"
+                    status: 400
+                    detail: "У гаражі може бути не більше 5 автомобілів."
+                    instance: "/api/v1/vehicles"
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+  /api/v1/slots:
+    get:
+      tags: [Slots]
+      summary: Розрахунок вільних слотів (Slot Engine)
+      operationId: getSlots
+      x-req-ids: [REQ-F-002, REQ-F-004]
+      parameters:
+        - name: service_ids
+          in: query
+          required: true
+          style: form
+          explode: true
+          schema:
+            type: array
+            minItems: 1
+            items:
+              type: string
+        - name: date
+          in: query
+          required: true
+          schema:
+            type: string
+            format: date
+      responses:
+        '200':
+          description: Вільні безперервні слоти для сумарної тривалості послуг
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Slot'
+              examples:
+                available_slots:
+                  value:
+                    - master_id: "m-001"
+                      master_name: "Іван Петренко"
+                      start_time: "2026-11-01T10:00:00Z"
+                      end_time: "2026-11-01T11:30:00Z"
+        '400':
+          description: Некоректні параметри або дата поза горизонтом 30 днів
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                invalid_date:
+                  value:
+                    type: "https://autobook.local/errors/validation-error"
+                    title: "Validation Error"
+                    status: 400
+                    detail: "Дата має бути в межах 30 днів наперед."
+                    instance: "/api/v1/slots"
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+  /api/v1/bookings:
+    post:
+      tags: [Bookings]
+      summary: Створення нового бронювання
+      operationId: createBooking
+      x-req-ids: [REQ-F-002, REQ-F-006, REQ-NF-003, REQ-NF-004]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BookingRequest'
+      responses:
+        '201':
+          description: Бронювання створено зі статусом PENDING
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BookingResponse'
+              examples:
+                booking_created:
+                  value:
+                    id: "b-999"
+                    booking_number: "BK-2026-001"
+                    status: "PENDING"
+                    start_time: "2026-11-01T10:00:00Z"
+        '400':
+          description: Помилка валідації тіла запиту
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                validation_error:
+                  value:
+                    type: "https://autobook.local/errors/validation-error"
+                    title: "Validation Error"
+                    status: 400
+                    detail: "Поле vehicle_id є обов'язковим."
+                    instance: "/api/v1/bookings"
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '409':
+          description: Конфлікт бронювання (Double Booking)
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                slot_conflict:
+                  value:
+                    type: "https://autobook.local/errors/slot-conflict"
+                    title: "Slot Conflict"
+                    status: 409
+                    detail: "Обраний слот вже заброньований іншим користувачем."
+                    instance: "/api/v1/bookings"
+
+  /api/v1/bookings/{id}/cancel:
+    patch:
+      tags: [Bookings]
+      summary: Скасування бронювання клієнтом (не пізніше ніж за 2 год)
+      operationId: cancelBooking
+      x-req-ids: [REQ-F-007, REQ-F-015, REQ-F-016]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                reason:
+                  type: string
+                  maxLength: 255
+      responses:
+        '200':
+          description: Бронювання скасовано
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BookingResponse'
+              examples:
+                cancelled:
+                  value:
+                    id: "b-999"
+                    status: "CANCELLED_BY_CLIENT"
+                cancelled_with_reason:
+                  value:
+                    id: "b-999"
+                    status: "CANCELLED_BY_CLIENT"
+                    cancel_reason: "Клієнт переніс візит."
+        '400':
+          description: Пізнє скасування, недозволений стан бронювання або помилка валідації
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                late_cancellation:
+                  value:
+                    type: "https://autobook.local/errors/late-cancellation"
+                    title: "Late Cancellation Denied"
+                    status: 400
+                    detail: "Скасування можливе не пізніше ніж за 2 години до початку візиту."
+                    instance: "/api/v1/bookings/b-999/cancel"
+                cancellation_not_allowed:
+                  value:
+                    type: "https://autobook.local/errors/cancellation-not-allowed"
+                    title: "Cancellation Not Allowed"
+                    status: 400
+                    detail: "Скасування можливе лише для підтвердженого бронювання."
+                    instance: "/api/v1/bookings/b-999/cancel"
+                reason_too_long:
+                  value:
+                    type: "https://autobook.local/errors/validation-error"
+                    title: "Validation Error"
+                    status: 400
+                    detail: "Поле reason має містити не більше 255 символів."
+                    instance: "/api/v1/bookings/b-999/cancel"
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          description: Бронювання не знайдено
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                not_found:
+                  value:
+                    type: "https://autobook.local/errors/not-found"
+                    title: "Booking Not Found"
+                    status: 404
+                    detail: "Бронювання b-000 не існує."
+                    instance: "/api/v1/bookings/b-000/cancel"
+
+  /api/v1/users/anonymize:
+    post:
+      tags: [Users]
+      summary: Знеособлення персональних даних (GDPR Right to be Forgotten)
+      operationId: anonymizeUser
+      x-req-ids: [REQ-NF-006, REQ-F-017]
+      responses:
+        '200':
+          description: Дані знеособлено; записи Booking та AuditLog збережено
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AnonymizeResponse'
+              examples:
+                anonymized:
+                  value:
+                    user_id: "u-001"
+                    status: "BLOCKED"
+                    full_name: "Anonymized User"
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          description: Недостатньо прав
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                forbidden:
+                  value:
+                    type: "https://autobook.local/errors/forbidden"
+                    title: "Forbidden"
+                    status: 403
+                    detail: "Знеособити можна лише власний акаунт."
+                    instance: "/api/v1/users/anonymize"
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+  responses:
+    Unauthorized:
+      description: Відсутній або недійсний токен авторизації
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          examples:
+            unauthorized:
+              value:
+                type: "https://autobook.local/errors/unauthorized"
+                title: "Unauthorized"
+                status: 401
+                detail: "Потрібна авторизація."
+                instance: "/api/v1/resource"
+
+  schemas:
+    Service:
+      type: object
+      required: [id, title, duration_minutes, price]
+      properties:
+        id: { type: string }
+        title: { type: string }
+        duration_minutes:
+          type: integer
+          multipleOf: 30
+          minimum: 30
+        price: { type: number }
+
+    Vehicle:
+      type: object
+      required: [id, make, model, year, license_plate]
+      properties:
+        id: { type: string }
+        make: { type: string }
+        model: { type: string }
+        year: { type: integer }
+        license_plate: { type: string }
+        vin: { type: string }
+
+    VehicleRequest:
+      type: object
+      required: [make, model, year, license_plate]
+      properties:
+        make: { type: string }
+        model: { type: string }
+        year: { type: integer }
+        license_plate: { type: string }
+        vin: { type: string }
+
+    Slot:
+      type: object
+      required: [master_id, master_name, start_time, end_time]
+      properties:
+        master_id: { type: string }
+        master_name: { type: string }
+        start_time: { type: string, format: date-time }
+        end_time: { type: string, format: date-time }
+
+    BookingRequest:
+      type: object
+      required: [vehicle_id, master_id, service_ids, start_time]
+      properties:
+        vehicle_id: { type: string }
+        master_id: { type: string }
+        service_ids:
+          type: array
+          minItems: 1
+          items: { type: string }
+        start_time: { type: string, format: date-time }
+
+    BookingResponse:
+      type: object
+      required: [id, status]
+      properties:
+        id: { type: string }
+        booking_number: { type: string }
+        status:
+          type: string
+          enum: [PENDING, CONFIRMED, REJECTED, IN_PROGRESS, COMPLETED, CANCELLED_BY_CLIENT, CANCELLED_BY_ADMIN, NO_SHOW]
+        start_time: { type: string, format: date-time }
+        cancel_reason: { type: string }
+
+    AnonymizeResponse:
+      type: object
+      required: [user_id, status]
+      properties:
+        user_id: { type: string }
+        status: { type: string, enum: [BLOCKED] }
+        full_name: { type: string }
+
+    ErrorResponse:
+      type: object
+      description: Єдина модель помилок (RFC 7807 Problem Details)
+      required: [type, title, status, detail, instance]
+      properties:
+        type: { type: string, format: uri }
+        title: { type: string }
+        status: { type: integer }
+        detail: { type: string }
+        instance: { type: string }

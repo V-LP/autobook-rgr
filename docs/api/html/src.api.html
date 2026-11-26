@@ -1,0 +1,439 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="uk" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>src.api &mdash; AutoBook SDD  documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=f1837318"></script>
+      <script src="_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Індекс" href="genindex.html" />
+    <link rel="search" title="Пошук" href="search.html" />
+    <link rel="next" title="src.services" href="src.services.html" />
+    <link rel="prev" title="src.models" href="models.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            AutoBook SDD
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Пакети</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="models.html">src.models</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">src.api</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#src.api.bookings.cancel_booking"><code class="docutils literal notranslate"><span class="pre">cancel_booking()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#src.api.bookings.create_booking"><code class="docutils literal notranslate"><span class="pre">create_booking()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#src.api.schemas.AnonymizeResponse"><code class="docutils literal notranslate"><span class="pre">AnonymizeResponse</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#src.api.schemas.AnonymizeResponse.model_config"><code class="docutils literal notranslate"><span class="pre">AnonymizeResponse.model_config</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#src.api.schemas.BookingRequest"><code class="docutils literal notranslate"><span class="pre">BookingRequest</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#src.api.schemas.BookingRequest.model_config"><code class="docutils literal notranslate"><span class="pre">BookingRequest.model_config</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#src.api.schemas.BookingResponse"><code class="docutils literal notranslate"><span class="pre">BookingResponse</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#src.api.schemas.BookingResponse.model_config"><code class="docutils literal notranslate"><span class="pre">BookingResponse.model_config</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#src.api.schemas.CancelBookingRequest"><code class="docutils literal notranslate"><span class="pre">CancelBookingRequest</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#src.api.schemas.CancelBookingRequest.model_config"><code class="docutils literal notranslate"><span class="pre">CancelBookingRequest.model_config</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#src.api.schemas.ErrorResponse"><code class="docutils literal notranslate"><span class="pre">ErrorResponse</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#src.api.schemas.ErrorResponse.model_config"><code class="docutils literal notranslate"><span class="pre">ErrorResponse.model_config</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#src.api.schemas.ServiceResponse"><code class="docutils literal notranslate"><span class="pre">ServiceResponse</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#src.api.schemas.ServiceResponse.model_config"><code class="docutils literal notranslate"><span class="pre">ServiceResponse.model_config</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#src.api.schemas.SlotResponse"><code class="docutils literal notranslate"><span class="pre">SlotResponse</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#src.api.schemas.SlotResponse.model_config"><code class="docutils literal notranslate"><span class="pre">SlotResponse.model_config</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#src.api.schemas.VehicleRequest"><code class="docutils literal notranslate"><span class="pre">VehicleRequest</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#src.api.schemas.VehicleRequest.model_config"><code class="docutils literal notranslate"><span class="pre">VehicleRequest.model_config</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#src.api.schemas.VehicleResponse"><code class="docutils literal notranslate"><span class="pre">VehicleResponse</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#src.api.schemas.VehicleResponse.model_config"><code class="docutils literal notranslate"><span class="pre">VehicleResponse.model_config</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#src.api.services.get_services"><code class="docutils literal notranslate"><span class="pre">get_services()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#src.api.slots.get_slots"><code class="docutils literal notranslate"><span class="pre">get_slots()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#src.api.users.anonymize_user"><code class="docutils literal notranslate"><span class="pre">anonymize_user()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#src.api.vehicles.create_vehicle"><code class="docutils literal notranslate"><span class="pre">create_vehicle()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#src.api.vehicles.get_vehicles"><code class="docutils literal notranslate"><span class="pre">get_vehicles()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="src.services.html">src.services</a></li>
+<li class="toctree-l1"><a class="reference internal" href="src.repositories.html">src.repositories</a></li>
+<li class="toctree-l1"><a class="reference internal" href="src.core.html">src.core</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">AutoBook SDD</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">src.api</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/src.api.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="src-api">
+<h1>src.api<a class="headerlink" href="#src-api" title="Link to this heading"></a></h1>
+<p>HTTP-роутери та схеми запитів/відповідей. Маршрути підключаються до FastAPI
+через <code class="docutils literal notranslate"><span class="pre">src.api.router</span></code>.</p>
+<p id="module-src.api">HTTP routers and Pydantic schemas that expose the approved REST contract.</p>
+<p id="module-src.api.bookings">Booking creation and cancellation API operations.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="src.api.bookings.cancel_booking">
+<span class="sig-prename descclassname"><span class="pre">src.api.bookings.</span></span><span class="sig-name descname"><span class="pre">cancel_booking</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">payload</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#src.api.schemas.CancelBookingRequest" title="src.api.schemas.CancelBookingRequest"><span class="pre">CancelBookingRequest</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="src.core.html#src.core.auth.AuthenticatedUser" title="src.core.auth.AuthenticatedUser"><span class="pre">AuthenticatedUser</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">Depends(dependency=&lt;function</span> <span class="pre">require_user&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_cache</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scope</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">session</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Session</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">Depends(dependency=&lt;function</span> <span class="pre">get_db_session&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_cache</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scope</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">now</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">datetime</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">Depends(dependency=&lt;function</span> <span class="pre">get_clock&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_cache</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scope</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None)</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#src.api.schemas.BookingResponse" title="src.api.schemas.BookingResponse"><span class="pre">BookingResponse</span></a></span></span><a class="reference internal" href="_modules/src/api/bookings.html#cancel_booking"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.api.bookings.cancel_booking" title="Link to this definition"></a></dt>
+<dd><p>Cancel an owned, confirmed booking when the notice period is satisfied.</p>
+<p>The service enforces the two-hour minimum and optional reason limit. The
+cancellation reason is not included in application logs.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Параметри<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>id</strong> – Booking UUID in string form.</p></li>
+<li><p><strong>payload</strong> – Optional cancellation reason, limited to 255 characters.</p></li>
+<li><p><strong>user</strong> – Identity supplied by the bearer-token dependency.</p></li>
+<li><p><strong>session</strong> – Request-scoped SQLAlchemy session.</p></li>
+<li><p><strong>now</strong> – Current time supplied by <code class="docutils literal notranslate"><span class="pre">get_clock</span></code>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Повертає<span class="colon">:</span></dt>
+<dd class="field-even"><p>The updated booking response, including a reason when one was retained.</p>
+</dd>
+<dt class="field-odd">Викликає<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="src.core.html#src.core.errors.ApiProblem" title="src.core.errors.ApiProblem"><strong>ApiProblem</strong></a> – If validation fails (400), the booking is unavailable to the
+    client (404), or cancellation is not allowed (400).</p>
+</dd>
+</dl>
+<p class="rubric">References</p>
+<p>REQ-F-007, REQ-F-015, REQ-F-016.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.api.bookings.create_booking">
+<span class="sig-prename descclassname"><span class="pre">src.api.bookings.</span></span><span class="sig-name descname"><span class="pre">create_booking</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">payload</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#src.api.schemas.BookingRequest" title="src.api.schemas.BookingRequest"><span class="pre">BookingRequest</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">user</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="src.core.html#src.core.auth.AuthenticatedUser" title="src.core.auth.AuthenticatedUser"><span class="pre">AuthenticatedUser</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">Depends(dependency=&lt;function</span> <span class="pre">require_user&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_cache</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scope</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">session</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Session</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">Depends(dependency=&lt;function</span> <span class="pre">get_db_session&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_cache</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scope</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">now</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">datetime</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">Depends(dependency=&lt;function</span> <span class="pre">get_clock&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_cache</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scope</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None)</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#src.api.schemas.BookingResponse" title="src.api.schemas.BookingResponse"><span class="pre">BookingResponse</span></a></span></span><a class="reference internal" href="_modules/src/api/bookings.html#create_booking"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.api.bookings.create_booking" title="Link to this definition"></a></dt>
+<dd><p>Create a pending booking for the authenticated client.</p>
+<p>The service applies booking validation and transaction rules; concurrent
+active-slot conflicts are reported as HTTP 409.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Параметри<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>payload</strong> – Vehicle, master, services, and timezone-aware start time.</p></li>
+<li><p><strong>user</strong> – Identity supplied by the bearer-token dependency.</p></li>
+<li><p><strong>session</strong> – Request-scoped SQLAlchemy session.</p></li>
+<li><p><strong>now</strong> – Current time supplied by <code class="docutils literal notranslate"><span class="pre">get_clock</span></code>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Повертає<span class="colon">:</span></dt>
+<dd class="field-even"><p>The created booking response.</p>
+</dd>
+<dt class="field-odd">Викликає<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="src.core.html#src.core.errors.ApiProblem" title="src.core.errors.ApiProblem"><strong>ApiProblem</strong></a> – For rejected booking input (400) or an occupied slot (409).</p>
+</dd>
+</dl>
+<p class="rubric">References</p>
+<p>REQ-F-002, REQ-F-006, REQ-NF-003, REQ-NF-004.</p>
+</dd></dl>
+
+<p id="module-src.api.router">Assemble the API routers for the approved seven-operation contract.</p>
+<p id="module-src.api.schemas">Pydantic request and response models matching the OpenAPI schemas.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="src.api.schemas.AnonymizeResponse">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">src.api.schemas.</span></span><span class="sig-name descname"><span class="pre">AnonymizeResponse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">user_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">status</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'BLOCKED'</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">full_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/api/schemas.html#AnonymizeResponse"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.api.schemas.AnonymizeResponse" title="Link to this definition"></a></dt>
+<dd><p>Represent the blocked account state returned after anonymization.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="src.api.schemas.AnonymizeResponse.model_config">
+<span class="sig-name descname"><span class="pre">model_config</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></span><a class="headerlink" href="#src.api.schemas.AnonymizeResponse.model_config" title="Link to this definition"></a></dt>
+<dd><p>Configuration for the model, should be a dictionary conforming to [<cite>ConfigDict</cite>][pydantic.config.ConfigDict].</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="src.api.schemas.BookingRequest">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">src.api.schemas.</span></span><span class="sig-name descname"><span class="pre">BookingRequest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">vehicle_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">master_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">service_ids</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Annotated</span><span class="p"><span class="pre">[</span></span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">MinLen</span><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">min_length</span></span><span class="o"><span class="pre">=</span></span><span class="m"><span class="pre">1</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_time</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">datetime</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/api/schemas.html#BookingRequest"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.api.schemas.BookingRequest" title="Link to this definition"></a></dt>
+<dd><p>Validate the identifiers and start time submitted for a booking.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="src.api.schemas.BookingRequest.model_config">
+<span class="sig-name descname"><span class="pre">model_config</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></span><a class="headerlink" href="#src.api.schemas.BookingRequest.model_config" title="Link to this definition"></a></dt>
+<dd><p>Configuration for the model, should be a dictionary conforming to [<cite>ConfigDict</cite>][pydantic.config.ConfigDict].</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="src.api.schemas.BookingResponse">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">src.api.schemas.</span></span><span class="sig-name descname"><span class="pre">BookingResponse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">booking_number</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">status</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Literal</span><span class="p"><span class="pre">[</span></span><span class="s"><span class="pre">'PENDING'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'CONFIRMED'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'REJECTED'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'IN_PROGRESS'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'COMPLETED'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'CANCELLED_BY_CLIENT'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'CANCELLED_BY_ADMIN'</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="s"><span class="pre">'NO_SHOW'</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_time</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">datetime</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cancel_reason</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/api/schemas.html#BookingResponse"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.api.schemas.BookingResponse" title="Link to this definition"></a></dt>
+<dd><p>Represent a booking and the status values defined by the API contract.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="src.api.schemas.BookingResponse.model_config">
+<span class="sig-name descname"><span class="pre">model_config</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></span><a class="headerlink" href="#src.api.schemas.BookingResponse.model_config" title="Link to this definition"></a></dt>
+<dd><p>Configuration for the model, should be a dictionary conforming to [<cite>ConfigDict</cite>][pydantic.config.ConfigDict].</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="src.api.schemas.CancelBookingRequest">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">src.api.schemas.</span></span><span class="sig-name descname"><span class="pre">CancelBookingRequest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">reason</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Annotated</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">MaxLen</span><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">max_length</span></span><span class="o"><span class="pre">=</span></span><span class="m"><span class="pre">255</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/api/schemas.html#CancelBookingRequest"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.api.schemas.CancelBookingRequest" title="Link to this definition"></a></dt>
+<dd><p>Accept an optional cancellation reason of at most 255 characters.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="src.api.schemas.CancelBookingRequest.model_config">
+<span class="sig-name descname"><span class="pre">model_config</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></span><a class="headerlink" href="#src.api.schemas.CancelBookingRequest.model_config" title="Link to this definition"></a></dt>
+<dd><p>Configuration for the model, should be a dictionary conforming to [<cite>ConfigDict</cite>][pydantic.config.ConfigDict].</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="src.api.schemas.ErrorResponse">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">src.api.schemas.</span></span><span class="sig-name descname"><span class="pre">ErrorResponse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">type</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">status</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">detail</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">instance</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/api/schemas.html#ErrorResponse"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.api.schemas.ErrorResponse" title="Link to this definition"></a></dt>
+<dd><p>Represent the RFC 7807 problem detail fields returned by the API.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="src.api.schemas.ErrorResponse.model_config">
+<span class="sig-name descname"><span class="pre">model_config</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></span><a class="headerlink" href="#src.api.schemas.ErrorResponse.model_config" title="Link to this definition"></a></dt>
+<dd><p>Configuration for the model, should be a dictionary conforming to [<cite>ConfigDict</cite>][pydantic.config.ConfigDict].</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="src.api.schemas.ServiceResponse">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">src.api.schemas.</span></span><span class="sig-name descname"><span class="pre">ServiceResponse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">duration_minutes</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Annotated</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Ge</span><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">ge</span></span><span class="o"><span class="pre">=</span></span><span class="m"><span class="pre">30</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">MultipleOf</span><span class="p"><span class="pre">(</span></span><span class="n"><span class="pre">multiple_of</span></span><span class="o"><span class="pre">=</span></span><span class="m"><span class="pre">30</span></span><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">price</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/api/schemas.html#ServiceResponse"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.api.schemas.ServiceResponse" title="Link to this definition"></a></dt>
+<dd><p>Represent one catalog service; duration is a positive slot-step multiple.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="src.api.schemas.ServiceResponse.model_config">
+<span class="sig-name descname"><span class="pre">model_config</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></span><a class="headerlink" href="#src.api.schemas.ServiceResponse.model_config" title="Link to this definition"></a></dt>
+<dd><p>Configuration for the model, should be a dictionary conforming to [<cite>ConfigDict</cite>][pydantic.config.ConfigDict].</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="src.api.schemas.SlotResponse">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">src.api.schemas.</span></span><span class="sig-name descname"><span class="pre">SlotResponse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">master_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">master_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_time</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">datetime</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_time</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">datetime</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/api/schemas.html#SlotResponse"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.api.schemas.SlotResponse" title="Link to this definition"></a></dt>
+<dd><p>Represent an available interval for a master.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="src.api.schemas.SlotResponse.model_config">
+<span class="sig-name descname"><span class="pre">model_config</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></span><a class="headerlink" href="#src.api.schemas.SlotResponse.model_config" title="Link to this definition"></a></dt>
+<dd><p>Configuration for the model, should be a dictionary conforming to [<cite>ConfigDict</cite>][pydantic.config.ConfigDict].</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="src.api.schemas.VehicleRequest">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">src.api.schemas.</span></span><span class="sig-name descname"><span class="pre">VehicleRequest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">make</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">year</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">license_plate</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vin</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/api/schemas.html#VehicleRequest"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.api.schemas.VehicleRequest" title="Link to this definition"></a></dt>
+<dd><p>Validate the fields accepted when adding a vehicle to a garage.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="src.api.schemas.VehicleRequest.model_config">
+<span class="sig-name descname"><span class="pre">model_config</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></span><a class="headerlink" href="#src.api.schemas.VehicleRequest.model_config" title="Link to this definition"></a></dt>
+<dd><p>Configuration for the model, should be a dictionary conforming to [<cite>ConfigDict</cite>][pydantic.config.ConfigDict].</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="src.api.schemas.VehicleResponse">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">src.api.schemas.</span></span><span class="sig-name descname"><span class="pre">VehicleResponse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">make</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">year</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">license_plate</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vin</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/src/api/schemas.html#VehicleResponse"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.api.schemas.VehicleResponse" title="Link to this definition"></a></dt>
+<dd><p>Represent a vehicle returned from the authenticated client’s garage.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="src.api.schemas.VehicleResponse.model_config">
+<span class="sig-name descname"><span class="pre">model_config</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">{}</span></span><a class="headerlink" href="#src.api.schemas.VehicleResponse.model_config" title="Link to this definition"></a></dt>
+<dd><p>Configuration for the model, should be a dictionary conforming to [<cite>ConfigDict</cite>][pydantic.config.ConfigDict].</p>
+</dd></dl>
+
+</dd></dl>
+
+<p id="module-src.api.services">Service catalog API operation.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="src.api.services.get_services">
+<span class="sig-prename descclassname"><span class="pre">src.api.services.</span></span><span class="sig-name descname"><span class="pre">get_services</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">session</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Session</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">Depends(dependency=&lt;function</span> <span class="pre">get_db_session&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_cache</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scope</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None)</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#src.api.schemas.ServiceResponse" title="src.api.schemas.ServiceResponse"><span class="pre">ServiceResponse</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/src/api/services.html#get_services"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.api.services.get_services" title="Link to this definition"></a></dt>
+<dd><p>List active services in the public catalog.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Параметри<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>session</strong> – Request-scoped SQLAlchemy session.</p>
+</dd>
+<dt class="field-even">Повертає<span class="colon">:</span></dt>
+<dd class="field-even"><p>Active catalog entries mapped to the API response schema.</p>
+</dd>
+<dt class="field-odd">Викликає<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>SQLAlchemyError</strong> – If catalog access fails.</p>
+</dd>
+</dl>
+<p class="rubric">References</p>
+<p>REQ-F-001.</p>
+</dd></dl>
+
+<p id="module-src.api.slots">Slot search API operation.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="src.api.slots.get_slots">
+<span class="sig-prename descclassname"><span class="pre">src.api.slots.</span></span><span class="sig-name descname"><span class="pre">get_slots</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">service_ids</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">Query(PydanticUndefined)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">slot_date</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">Query(PydanticUndefined)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">user</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="src.core.html#src.core.auth.AuthenticatedUser" title="src.core.auth.AuthenticatedUser"><span class="pre">AuthenticatedUser</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">Depends(dependency=&lt;function</span> <span class="pre">require_user&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_cache</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scope</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">session</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Session</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">Depends(dependency=&lt;function</span> <span class="pre">get_db_session&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_cache</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scope</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">now</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">datetime</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">Depends(dependency=&lt;function</span> <span class="pre">get_clock&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_cache</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scope</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None)</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#src.api.schemas.SlotResponse" title="src.api.schemas.SlotResponse"><span class="pre">SlotResponse</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/src/api/slots.html#get_slots"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.api.slots.get_slots" title="Link to this definition"></a></dt>
+<dd><p>Search available intervals for the requested active services and date.</p>
+<p>The service enforces the 30-day search horizon and minimum booking notice.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Параметри<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>service_ids</strong> – One or more service UUIDs.</p></li>
+<li><p><strong>slot_date</strong> – Date query value in canonical <code class="docutils literal notranslate"><span class="pre">YYYY-MM-DD</span></code> form.</p></li>
+<li><p><strong>user</strong> – Authenticated identity required by the endpoint.</p></li>
+<li><p><strong>session</strong> – Request-scoped SQLAlchemy session.</p></li>
+<li><p><strong>now</strong> – Current time supplied by <code class="docutils literal notranslate"><span class="pre">get_clock</span></code>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Повертає<span class="colon">:</span></dt>
+<dd class="field-even"><p>Available intervals with master identifiers and names.</p>
+</dd>
+<dt class="field-odd">Викликає<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="src.core.html#src.core.errors.ApiProblem" title="src.core.errors.ApiProblem"><strong>ApiProblem</strong></a> – If query validation or slot-search rules reject the request.</p>
+</dd>
+</dl>
+<p class="rubric">References</p>
+<p>REQ-F-002, REQ-F-004.</p>
+</dd></dl>
+
+<p id="module-src.api.users">User profile API operations.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="src.api.users.anonymize_user">
+<span class="sig-prename descclassname"><span class="pre">src.api.users.</span></span><span class="sig-name descname"><span class="pre">anonymize_user</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">user</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="src.core.html#src.core.auth.AuthenticatedUser" title="src.core.auth.AuthenticatedUser"><span class="pre">AuthenticatedUser</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">Depends(dependency=&lt;function</span> <span class="pre">require_user&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_cache</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scope</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">session</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Session</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">Depends(dependency=&lt;function</span> <span class="pre">get_db_session&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_cache</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scope</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None)</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#src.api.schemas.AnonymizeResponse" title="src.api.schemas.AnonymizeResponse"><span class="pre">AnonymizeResponse</span></a></span></span><a class="reference internal" href="_modules/src/api/users.html#anonymize_user"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.api.users.anonymize_user" title="Link to this definition"></a></dt>
+<dd><p>Anonymize and block the authenticated client’s account.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Параметри<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>user</strong> – Identity and role supplied by the bearer-token dependency.</p></li>
+<li><p><strong>session</strong> – Request-scoped SQLAlchemy session.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Повертає<span class="colon">:</span></dt>
+<dd class="field-even"><p>The blocked account response with its anonymized display name.</p>
+</dd>
+<dt class="field-odd">Викликає<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="src.core.html#src.core.errors.ApiProblem" title="src.core.errors.ApiProblem"><strong>ApiProblem</strong></a> – If the authenticated role is not CLIENT (403).</p>
+</dd>
+</dl>
+<p class="rubric">References</p>
+<p>REQ-NF-006.</p>
+</dd></dl>
+
+<p id="module-src.api.vehicles">Vehicle garage API operations.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="src.api.vehicles.create_vehicle">
+<span class="sig-prename descclassname"><span class="pre">src.api.vehicles.</span></span><span class="sig-name descname"><span class="pre">create_vehicle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">payload</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#src.api.schemas.VehicleRequest" title="src.api.schemas.VehicleRequest"><span class="pre">VehicleRequest</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">user</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="src.core.html#src.core.auth.AuthenticatedUser" title="src.core.auth.AuthenticatedUser"><span class="pre">AuthenticatedUser</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">Depends(dependency=&lt;function</span> <span class="pre">require_user&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_cache</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scope</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">session</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Session</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">Depends(dependency=&lt;function</span> <span class="pre">get_db_session&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_cache</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scope</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None)</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#src.api.schemas.VehicleResponse" title="src.api.schemas.VehicleResponse"><span class="pre">VehicleResponse</span></a></span></span><a class="reference internal" href="_modules/src/api/vehicles.html#create_vehicle"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.api.vehicles.create_vehicle" title="Link to this definition"></a></dt>
+<dd><p>Add a vehicle to the authenticated client’s garage.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Параметри<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>payload</strong> – Vehicle attributes accepted by the request schema.</p></li>
+<li><p><strong>user</strong> – Identity supplied by the bearer-token dependency.</p></li>
+<li><p><strong>session</strong> – Request-scoped SQLAlchemy session.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Повертає<span class="colon">:</span></dt>
+<dd class="field-even"><p>The persisted vehicle response.</p>
+</dd>
+<dt class="field-odd">Викликає<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="src.core.html#src.core.errors.ApiProblem" title="src.core.errors.ApiProblem"><strong>ApiProblem</strong></a> – If the client’s garage already contains five vehicles (400).</p>
+</dd>
+</dl>
+<p class="rubric">References</p>
+<p>REQ-F-005.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="src.api.vehicles.get_vehicles">
+<span class="sig-prename descclassname"><span class="pre">src.api.vehicles.</span></span><span class="sig-name descname"><span class="pre">get_vehicles</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">user</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="src.core.html#src.core.auth.AuthenticatedUser" title="src.core.auth.AuthenticatedUser"><span class="pre">AuthenticatedUser</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">Depends(dependency=&lt;function</span> <span class="pre">require_user&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_cache</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scope</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None)</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">session</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Session</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">Depends(dependency=&lt;function</span> <span class="pre">get_db_session&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_cache</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scope</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None)</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#src.api.schemas.VehicleResponse" title="src.api.schemas.VehicleResponse"><span class="pre">VehicleResponse</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/src/api/vehicles.html#get_vehicles"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#src.api.vehicles.get_vehicles" title="Link to this definition"></a></dt>
+<dd><p>List vehicles in the authenticated client’s garage.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Параметри<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>user</strong> – Identity supplied by the bearer-token dependency.</p></li>
+<li><p><strong>session</strong> – Request-scoped SQLAlchemy session.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Повертає<span class="colon">:</span></dt>
+<dd class="field-even"><p>The client’s vehicles, limited by the repository to five entries.</p>
+</dd>
+</dl>
+<p class="rubric">References</p>
+<p>REQ-F-005.</p>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="models.html" class="btn btn-neutral float-left" title="src.models" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="src.services.html" class="btn btn-neutral float-right" title="src.services" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, AutoBook SDD.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
